@@ -1,0 +1,329 @@
+/* ==========================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Helper Classes */
+.hidden { display: none !important; }
+.text-blue { color: #007bff; }
+.text-green { color: #28a745; }
+.text-red { color: #dc3545; }
+
+/* ==========================================
+   2. SIDEBAR & FORM ELEMENTS
+   ========================================== */
+.sidebar {
+    width: 350px;
+    background: white;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+hr {
+    margin: 25px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.time-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.time-group label {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.time-selectors {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.time-selectors select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: white;
+}
+
+/* ==========================================
+   3. BUTTON STYLES
+   ========================================== */
+button, .btn-secondary {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.2s;
+}
+
+button:hover, .btn-secondary:hover { background: #0056b3; }
+
+.btn-secondary {
+    background: #6c757d;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-search { background: #17a2b8; }
+.btn-search:hover { background: #138496; }
+
+.btn-today {
+    background: #28a745;
+    padding: 8px 15px;
+    color: white;
+    font-weight: bold;
+}
+.btn-today:hover { background: #218838; }
+
+.btn-delete { background: #dc3545; padding: 6px 12px; width: auto; margin-top: 10px; }
+.btn-delete:hover { background: #c82333; }
+
+.btn-pay { background: #28a745; padding: 6px 12px; width: auto; margin-top: 10px; margin-right: 10px; }
+.btn-pay:hover { background: #218838; }
+
+/* NEW: Edit Button */
+.btn-edit { background: #ffc107; color: #333; padding: 6px 12px; width: auto; margin-top: 10px; margin-right: 10px; }
+.btn-edit:hover { background: #e0a800; }
+
+/* ==========================================
+   4. MAIN DISPLAY & DASHBOARD
+   ========================================== */
+.calendar-display {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.financial-dashboard {
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.stat-box {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-jumpers { display: flex; gap: 10px; align-items: center; }
+
+.jump-select, .jump-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+}
+.jump-input { width: 80px; text-align: center; }
+
+/* ==========================================
+   5. CALENDAR GRID & EVENTS
+   ========================================== */
+.calendar-grid-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.day-cell {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    cursor: pointer;
+    overflow-y: auto;
+    transition: 0.2s;
+}
+.day-cell:hover { background: #e9ecef; }
+.current-day { background-color: #e2eafc; border: 2px solid #007bff; }
+.day-number { font-weight: bold; margin-bottom: 5px; }
+
+.event-pill {
+    background: #dc3545; 
+    color: white;
+    font-size: 0.75rem;
+    padding: 4px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.event-pill.paid { background: #28a745; }
+
+/* ==========================================
+   6. MODALS
+   ========================================== */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 500px;
+    max-height: 80vh;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+
+.event-detail-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background: #fdfdfd;
+}
+.event-detail-card h3 { margin-bottom: 5px; color: #007bff; }
+
+.search-input { margin: 15px 0; padding: 10px; width: 100%; }
+
+/* ==========================================
+   7. MOBILE RESPONSIVENESS (For Phones & Tablets)
+   ========================================== */
+@media screen and (max-width: 768px) {
+    /* Stack the sidebar and calendar on top of each other */
+    .app-container {
+        flex-direction: column;
+        height: auto; 
+        min-height: 100vh;
+    }
+
+    /* Make the sidebar take up the full width of the phone */
+    .sidebar {
+        width: 100%;
+        border-bottom: 2px solid #ddd;
+        box-shadow: none;
+    }
+
+    /* Adjust the calendar padding for small screens */
+    .calendar-display {
+        padding: 10px;
+    }
+
+    /* Stack the dashboard stats vertically */
+    .financial-dashboard {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+    }
+
+    /* Center the calendar navigation buttons */
+    .calendar-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .date-jumpers {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Make the day boxes slightly taller so text fits better */
+    .day-cell {
+        min-height: 80px;
+        padding: 5px;
+    }
+
+    /* Shrink the day headers (Sun, Mon, Tue) */
+    .calendar-grid-header {
+        font-size: 0.85rem;
+    }
+
+    /* Make sure modals don't bleed off the screen */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+        margin: 10px;
+    }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Schedule & Receipt App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <h2 id="sidebar-title">Add New Entry</h2>
+            <form id="event-form">
+                <input type="text" id="person" placeholder="Client/Person Name" required>
+                <input type="email" id="email" placeholder="Email Address">
+                <input type="tel" id="phone" placeholder="Phone Number">
+                <input type="date" id="date" required>
+                
+                <div class="time-group">
+                    <label>Start Time:</label>
+                    <div class="time-selectors">
+                        <select id="start-hour"></select><span>:</span>
+                        <select id="start-minute"></select>
+                        <select id="start-ampm">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="time-group">
+                    <label>End Time:</label>
+                    <div class="time-selectors">
+                        <select id="end-hour"></select><span>:</span>
+                        <select id="end-minute"></select>
+                        <select id="end-ampm">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <input type="number" step="0.01" id="amount" placeholder="Receipt Amount ($)">
+                <textarea id="notes" placeholder="Notes or Service Details" rows="3"></textarea>
+                
+                <button type="submit" id="save-btn">Save to Calendar</button>
+                <div id="error-msg" class="error hidden"></div>
+            </form>
+            
+            <hr>
+
+            <h2>Data Management</h2>
+            <div class="file-actions">
+                <label for="import-file" class="btn-secondary">Load Backup (.json)</label>
+                <input type="file" id="import-file" accept=".json" class="hidden">
+                <button id="export-btn" class="btn-secondary">Download Backup</button>
+                <button id="open-search-btn" class="btn-secondary btn-search">Search by Phone</button>
+            </div>
+        </div>
+
+        <div class="calendar-display">
+            
+            <div class="financial-dashboard">
+                <div class="stat-box">Projected Total: <span id="projected-total" class="text-blue">$0.00</span></div>
+                <div class="stat-box">Actual Paid: <span id="actual-paid" class="text-green">$0.00</span></div>
+                <div class="stat-box">Unpaid Balance: <span id="unpaid-balance" class="text-red">-$0.00</span></div>
+            </div>
+
+            <div class="calendar-header">
+                <button id="prev-month">&lt; Prev</button>
+                
+                <div class="date-jumpers">
+                    <button id="today-btn" class="btn-today">Today</button>
+                    <select id="month-select" class="jump-select">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                    <input type="number" id="year-select" class="jump-input" min="2000" max="2100">
+                </div>
+
+                <button id="next-month">Next &gt;</button>
+            </div>
+
+            <div class="calendar-grid-header">
+                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                </div>
+        </div>
+    </div>
+
+    <div id="day-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <button id="back-to-search-btn" class="btn-secondary hidden" style="margin-bottom: 15px; background: #6c757d; width: auto; padding: 6px 12px;">⬅ Back to Search</button>
+            <h2 id="modal-date-title">Events</h2>
+            <div id="modal-events-list"></div>
+        </div>
+    </div>
+
+    <div id="search-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-search-modal">&times;</span>
+            <h2>Search Client History</h2>
+            <input type="tel" id="search-phone-input" class="search-input" placeholder="Enter phone number...">
+            <div id="search-results-list"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
